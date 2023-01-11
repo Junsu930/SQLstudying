@@ -165,7 +165,7 @@ SELECT TO_CHAR(1234, '99999') FROM DUAL; --1234
 SELECT TO_CHAR(1234, '00000') FROM DUAL; --01234
 SELECT TO_CHAR(1000000, 'L9,999,999') FROM DUAL; --￦1,000,000
 
-SELECT TO_CHAR(1000000, '$9,999,999') FROM DUAL; --￦1,000,000
+SELECT TO_CHAR(1000000, '$9,999,999') FROM DUAL; --$1,000,000
 
 -- < 날짜 변환 시 포맷 패턴 > 
 -- YYYY : 년도 / YY : 년도(짧게)
@@ -200,7 +200,7 @@ SELECT TO_DATE('510505', 'YYMMDD')FROM DUAL; -- 2051-05-05 (미래)
 SELECT TO_DATE('510505', 'RRMMDD')FROM DUAL; -- 1951-05-05 (과거)
 
 -- Y 패턴 : 현재 세기(21세기 == 20XX년 == 2000년대)
--- N 패턴 : 1세기를 기준으로 절반(50년) 이상인 경우 이전 세기(1900년대)
+-- R 패턴 : 1세기를 기준으로 절반(50년) 이상인 경우 이전 세기(1900년대)
 --			절반 미만인 경우 현재 세기(2000년대)
 
 -- EMPLOYEE 테이블에서 태어난 생년월일(1990년 05월 13일) 조회
@@ -221,7 +221,7 @@ SELECT TO_NUMBER('1,000,000', '9,999,999') + 500000 FROM DUAL;
 
 /* NULL 처리 함수 */
 
--- NVL (컬러명, 컬럼값이 NULL일 때 바꿀 값) : NULL인 컬럼값을 다른 값으로 변경
+-- NVL (컬럼명, 컬럼값이 NULL일 때 바꿀 값) : NULL인 컬럼값을 다른 값으로 변경
 
 /* NULL과 산술 연산을 진행하면 결과는 무조건 NULL */
 SELECT EMP_NAME, SALARY, BONUS, NVL(BONUS, 0), SALARY * NVL(BONUS, 0) FROM EMPLOYEE;
@@ -250,6 +250,7 @@ SELECT EMP_NAME, EMP_NO, DECODE( SUBSTR(EMP_NO,8, 1), '1', '남성', '2', '여�
 -- 직급 코드가 J7인 직원은 20퍼센트 인상
 -- 직급 코드가 J6인 직원은 15퍼센트 인상
 -- 직급 코드가 J5인 직원은 10퍼센트 인상
+-- 나머지는 5퍼센트 인상
 
 SELECT EMP_NAME 이름 ,JOB_CODE 직급코드 , SALARY 원급여 , DECODE(JOB_CODE , 'J7', '20%', 'J6', '15%', 'J5', '10%', '5%') 인상률, 
 SALARY + SALARY*DECODE(JOB_CODE , 'J7', 0.2, 'J6', 0.15, 'J5', 0.1, 0.05) "인상된 급여" -- DECODE(JOB_CODE , 'J7', SALARY* 1.2, 'J6', SALARY*1.15, 'J5', SALARY*1.1, SALARY* 1.05)
@@ -259,6 +260,19 @@ FROM EMPLOYEE;
 --		WHEN 조건식 THEN 결과값
 --		ELSE 결과값
 -- END
+
+SELECT EMP_NAME , JOB_CODE , SALARY,
+CASE  WHEN JOB_CODE = 'J7' THEN '20%'
+WHEN JOB_CODE = 'J6' THEN '15%'
+WHEN JOB_CODE = 'J5' THEN '10%'
+ELSE '5%'
+END 인상율, 
+CASE  WHEN JOB_CODE = 'J7' THEN SALARY * 1.2
+WHEN JOB_CODE = 'J6' THEN SALARY * 1.15
+WHEN JOB_CODE = 'J5' THEN SALARY * 1.1
+ELSE SALARY * 1.05 
+END "인상된 급여"
+FROM EMPLOYEE;
 
 -- 비교하고자 하는 값 또는 컬럼이 조건식과 같으면 결과값 반환
 -- 조건은 범위 값 가능
