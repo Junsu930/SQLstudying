@@ -4,7 +4,7 @@
 
 -- 주의 : 혼자서 COMMIT, ROLLBACK 하지 마시오
 
--- 테스트용 태아블 생성
+-- 테스트용 테이블 생성
 CREATE TABLE EMPLOYEE2
 AS SELECT * FROM EMPLOYEE;
 
@@ -93,13 +93,15 @@ SELECT * FROM EMP_01;
 -- DEPARTMENT2 테이블에서 DEPT_ID 'D9'인 부서 정보 조회
 
 SELECT * FROM DEPARTMENT2 
-WHERE DEPT_ID LIKE 'D9'; -- D9은 총무부
+WHERE DEPT_ID LIKE 'D0'; -- D9은 총무부
 
 -- DEPARTMENT2 테이블에서 DEPT_ID 'D9'인 행의 DEPT_TITLE을 '전략기획팀'으로 수정
 
 UPDATE DEPARTMENT2 
 SET DEPT_TITLE = '전략기획팀'
 WHERE DEPT_ID = 'D9';
+
+
 
 -- UPDATE 확인
 SELECT * FROM DEPARTMENT2 

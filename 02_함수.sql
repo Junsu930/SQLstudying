@@ -120,7 +120,7 @@ SELECT SYSTIMESTAMP FROM DUAL;
 
 -- MONTH_BETWEEN(날짜, 날짜) : 두 날짜의 개월 수 차이 반환
 
-SELECT ROUND(MONTHS_BETWEEN( '2023-07-10', SYSDATE),3) "수강기간(개월)" FROM DUAL; 
+SELECT ROUND(MONTHS_BETWEEN( '2023-07-10', SYSDATE),3) FROM DUAL; 
 
 -- EMPLOYEE 테이블에서 
 -- 사원의 이름, 입사일, 근무한 개월 수, 근무 년차 조회
@@ -288,6 +288,7 @@ SELECT EMP_NAME, SALARY,
 FROM EMPLOYEE;
 
 
+
 ----------------------------------------------------------------------------------------------------------------------------
 
 /* 그룹 함수 */
@@ -338,5 +339,10 @@ FROM EMPLOYEE
 WHERE SUBSTR(EMP_NO, 8, 1) = '1'; 
 
 
- 
+ -----------------------------------------------
 
+-- UPPER 함수의 역할
+SELECT EMP_NO, UPPER(EMP_NAME)
+FROM EMPLOYEE;
+
+-- 조회할 컬럼이 영문자일 경우 대문자로 바꿔주는 함수

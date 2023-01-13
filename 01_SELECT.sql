@@ -32,19 +32,19 @@ SELECT EMP_NAME + 10 FROM EMPLOYEE;
 
 ---------------------------------------------------------------------------------
 
--- 날짜(DATA)타입 조회
+-- 날짜(DATE)타입 조회
 
 -- EMPLOYEE 테이블에서 이름, 입사일, 오늘 날짜 조회
 
 SELECT EMP_NAME, HIRE_DATE, SYSDATE FROM EMPLOYEE;
 
 -- 1999-12-31 00:00:00.000
--- SYSDATE : 시스템 상의 현재 시간(날짜)를 나타내는 상수
+-- SYSDATE : 시스템 상의 현재 시간(날짜)을 나타내는 상수
 
 
 -- 현재 시간만 조회하기
 SELECT SYSDATE FROM DUAL;
--- DUAL (DUmmy tAbLe)테이블 : 가짜 테이블 (임시 조회용 테이블)
+-- DUAL (Dummy Table)테이블 : 가짜 테이블 (임시 조회용 테이블)
 
 -- 날짜 + 산술 연산(+, -)
 SELECT SYSDATE -1, SYSDATE, SYSDATE +1 FROM DUAL;
@@ -217,7 +217,7 @@ AND SALARY >= 2700000;
  * 3. 비교연산자 (> < >= <= = != <>)
  * 4. IS NULL / IS NOT NULL, LIKE, IN / NOT IN
  * 5. BETWEEN AND / NOT BETWEEN AND 
- * 6.  
+ *  
  * */
 
 -------------------------------------------------------------------------------
