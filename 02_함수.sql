@@ -256,6 +256,8 @@ SELECT EMP_NAME 이름 ,JOB_CODE 직급코드 , SALARY 원급여 , DECODE(JOB_CO
 SALARY + SALARY*DECODE(JOB_CODE , 'J7', 0.2, 'J6', 0.15, 'J5', 0.1, 0.05) "인상된 급여" -- DECODE(JOB_CODE , 'J7', SALARY* 1.2, 'J6', SALARY*1.15, 'J5', SALARY*1.1, SALARY* 1.05)
 FROM EMPLOYEE;
 
+
+
 -- CASE WHEN 조건식 THEN 결과값
 --		WHEN 조건식 THEN 결과값
 --		ELSE 결과값
@@ -273,6 +275,8 @@ WHEN JOB_CODE = 'J5' THEN SALARY * 1.1
 ELSE SALARY * 1.05 
 END "인상된 급여"
 FROM EMPLOYEE;
+
+
 
 -- 비교하고자 하는 값 또는 컬럼이 조건식과 같으면 결과값 반환
 -- 조건은 범위 값 가능

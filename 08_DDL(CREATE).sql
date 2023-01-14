@@ -21,7 +21,7 @@
 
 
 -- 오라클에서의 객체 : 테이블(TALBE), 뷰(VIEW), 시퀀스(SEQUENCE), 인덱스(INDEXT), 패키지(PACKAGE), 트리거(TRIGGER)
---					   프로시져(PROCEDURE), 함수(FUNCTION), 동의어(SYNOMYM), 사용자(USER)
+--					   프로시져(PROCEDURE), 함수(FUNCTION), 동의어(SYNONYM), 사용자(USER)
 
 --------------------------------------------------------------------------------------------
 
@@ -368,8 +368,8 @@ SELECT * FROM USER_GRADE;
 SELECT * FROM USER_USED_FK;
 
 -- 1) ON DELETE RESTRICT (삭제 제한)로 기본 지정되어 있음
--- FOREUGN KEY로 지정된 컬럼에서 사용되고 있는 값이 있을 경우
--- 제공하는 컬럼의 값은 삭제하지 모함
+-- FOREIGN KEY로 지정된 컬럼에서 사용되고 있는 값이 있을 경우
+-- 제공하는 컬럼의 값은 삭제하지 못함
 
 DELETE FROM USER_GRADE WHERE GRADE_CODE = 30;
 --ORA-02292: 무결성 제약조건(KH.GRADE_CODE_FK)이 위배되었습니다- 자식 레코드가 발견되었습니다
@@ -467,4 +467,3 @@ DELETE FROM USER_GRADE3 WHERE GRADE_CODE = 10;
 -- 자식 테이블의 자식키의 컬럼에 해당하는 행이 삭제된다
 
 
-SELECT TO_CHAR(TO_DATE('210505'),'YYYY"년" MM"월" DD"일"') FROM DUAL;
