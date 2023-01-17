@@ -190,6 +190,12 @@ SELECT EMP_ID, EMP_NAME, EMAIL
 FROM EMPLOYEE 
 WHERE EMAIL LIKE '___#_%' ESCAPE '#';
 
+
+SELECT email FROM EMPLOYEE WHERE email LIKE '___#_%' ESCAPE '#';
+
+
+SELECT EMP_ID, EMP_NAME, JOB_NAME FROM EMPLOYEE e, JOB j WHERE e.JOB_CODE = j.JOB_CODE;
+
 ---------------------------------------------------------------------------
 
 -- 연습문제!!
@@ -207,6 +213,8 @@ WHERE EMAIL LIKE '____#_%' ESCAPE '#'
 AND (DEPT_CODE = 'D9' OR DEPT_CODE='D6') 
 AND HIRE_DATE BETWEEN '1990-01-01' AND '2000-12-31' 
 AND SALARY >= 2700000;
+
+
 
 
 -- 연산자 우선순위
@@ -295,6 +303,8 @@ SELECT EMP_NAME, DEPT_CODE, SALARY
 FROM EMPLOYEE 
 ORDER BY DEPT_CODE ASC, SALARY DESC;
 -- 정렬 중첩 : 대분류 정렬 후 소분류 정렬
+
+SELECT TO_CHAR(TO_DATE(210505),'yyyy"년" mm"월" dd"일"') FROM DUAL;
 
 
 

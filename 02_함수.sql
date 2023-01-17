@@ -107,6 +107,8 @@ SELECT TRUNC(123.456, -1) FROM DUAL; -- 10의 자리 아래 버림
 
 SELECT FLOOR(-123.5), TRUNC(-123.5) FROM DUAL; -- -124, -123 내림과 버림의 차이
 
+
+
 --------------------------------------------------------------------------------------
 
 /* 날짜(DATE) 관련 함수 */
@@ -146,6 +148,9 @@ SELECT LAST_DAY('2023-02-01') FROM DUAL;
 SELECT EMP_NAME, EXTRACT(YEAR FROM HIRE_DATE) || '년' || EXTRACT(MONTH FROM HIRE_DATE) || '월' ||  EXTRACT(DAY FROM HIRE_DATE) || '일'
 AS 입사일
 FROM EMPLOYEE;
+
+
+SELECT EMAIl FROM EMPLOYEE WHERE EMAIL LIKE '___#_%' ESCAPE '#';
 
 ----------------------------------------------------------------------------------------------------------------------------
 
@@ -217,6 +222,8 @@ SELECT '1,000,000' + 50000 FROM DUAL;
 
 SELECT TO_NUMBER('1,000,000', '9,999,999') + 500000 FROM DUAL;
 
+SELECT LAST_DAY(SYSDATE) FROM DUAL;
+
 -------------------------------------------------------------------------------------------------------------------------
 
 /* NULL 처리 함수 */
@@ -268,7 +275,7 @@ CASE  WHEN JOB_CODE = 'J7' THEN '20%'
 WHEN JOB_CODE = 'J6' THEN '15%'
 WHEN JOB_CODE = 'J5' THEN '10%'
 ELSE '5%'
-END 인상율, 
+END 인상율 , 
 CASE  WHEN JOB_CODE = 'J7' THEN SALARY * 1.2
 WHEN JOB_CODE = 'J6' THEN SALARY * 1.15
 WHEN JOB_CODE = 'J5' THEN SALARY * 1.1
