@@ -83,7 +83,7 @@ WHERE SALARY >= (SELECT CEIL(AVG(SALARY))
 --    단일행 서브쿼리 앞에는 비교 연산자 사용
 --    <, >, <=, >=, =, !=/^=/<>
 
-			
+
 -- 전 직원의 급여 평균보다 많은(초과) 급여를 받는 직원의 
 -- 이름, 직급, 부서, 급여를 직급 순으로 정렬하여 조회
 SELECT EMP_NAME, JOB_NAME, DEPT_TITLE, SALARY 
@@ -154,7 +154,6 @@ GROUP BY DEPT_CODE);
 SELECT DEPT_CODE ,MAX(SALARY) FROM EMPLOYEE GROUP BY DEPT_CODE;
 
 -- 부서별 최고 급여를 받는 직원의
-
 -- 이름, 직급, 부서, 급여를 부서 순으로 정렬하여 조회
 SELECT EMP_NAME, JOB_CODE, DEPT_CODE 
 FROM EMPLOYEE 
@@ -311,8 +310,11 @@ WHERE JOB_NAME = '차장')
 -- EMPLOYEE테이블의 DEPT_CODE와 동일한 사원을 구하시오.
 --> TIP! 테이블 전체 조회부터 한줄씩 결과 찾아나가기
 
+SELECT LOCAL_CODE FROM LOCATION WHERE NATIONAL_CODE = 'KO';
+
 -- 1) LOCATION 테이블을 통해 NATIONAL_CODE가 KO인 LOCAL_CODE 조회
 SELECT LOCAL_CODE FROM LOCATION WHERE NATIONAL_CODE = 'KO'; --L1
+
 
 -- 2) DEPARTMENT 테이블에서 위의 결과와 동일한 LOCATION_ID를 가지고 있는 DEPT_ID를 조회
 SELECT DEPT_ID 
@@ -332,7 +334,10 @@ WHERE LOCATION_ID = (SELECT LOCAL_CODE FROM LOCATION WHERE NATIONAL_CODE = 'KO')
 --    서브쿼리 SELECT 절에 나열된 컬럼 수가 여러개 일 때
 
 -- 퇴사한 여직원과 같은 부서, 같은 직급에 해당하는
--- 사원의 이름, 직급, 부서, 입사일을 조회        
+-- 사원의 이름, 직급, 부서, 입사일을 조회   
+SELECT EMP_NAME, JOB_CODE, DEPT_CODE, HIRE_DATE FROM EMPLOYEE 
+WHERE (DEPT_CODE, JOB_CODE) IN (SELECT DEPT_CODE, JOB_CODE FROM EMPLOYEE e WHERE substr(EMP_NO,8,1)='2' AND ENT_YN ='Y');
+
 
 -- 1) 퇴사한 여직원 조회
 SELECT DEPT_CODE , JOB_CODE , EMP_NAME FROM EMPLOYEE 
@@ -406,6 +411,8 @@ WHERE SUBSTR(EMP_NO, 1,8) LIKE '77____-2%');
 -- 사번, 이름, 직급, 급여를 조회하세요
 -- 단, 급여와 급여 평균은 만원단위로 계산하세요 TRUNC(컬럼명, -4)    
 
+SELECT EMP_ID, EMP_NAME , JOB_CODE, SALARY FROM EMPLOYEE WHERE (JOB_CODE, SALARY) IN (SELECT JOB_CODE, TRUNC(AVG(SALARY),-4) FROM EMPLOYEE GROUP BY JOB_CODE)
+
 -- 1) 급여를 200, 600만 받는 직원 (200만, 600만이 평균급여라 생각 할 경우)
 SELECT EMP_ID, EMP_NAME, JOB_CODE, SALARY  FROM EMPLOYEE 
 WHERE TRUNC(SALARY, -4) IN (2000000, 6000000);
@@ -438,7 +445,7 @@ GROUP BY JOB_CODE);
 
 -- ** 해석 순서가 기존 서브쿼리와 다르게
 -- ** 메인쿼리 1 행 -> 1행에 대한 서브쿼리
--- ** 메이쿼리 2 행 -> 2행에 대한 서브쿼리
+-- ** 메인쿼리 2 행 -> 2행에 대한 서브쿼리
 -- ** ...
 
 
@@ -463,7 +470,11 @@ ORDER BY HIRE_DATE;
 -- 2) SUB를 수행
 -- 3) SUB의 결과를 이용해서 MAIN에 실행
 
-
+SELECT EMP_ID, EMP_NAME, NVL(DEPT_TITLE, '소속없음'), JOB_NAME, HIRE_DATE  FROM EMPLOYEE MAIN NATURAL JOIN JOB 
+LEFT JOIN DEPARTMENT d ON (DEPT_CODE=DEPT_ID)
+WHERE ENT_YN = 'N'
+AND HIRE_DATE = (SELECT MIN(HIRE_DATE) FROM EMPLOYEE SUB WHERE SUB.DEPT_CODE  = MAIN.DEPT_CODE AND ENT_YN ='N')
+ORDER BY HIRE_DATE ;
 
 
 

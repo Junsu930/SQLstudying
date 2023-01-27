@@ -39,6 +39,7 @@ WHERE EMP_ID = 900;
 
 COMMIT;
 
+
 -------------------------------------------------------------------------------
 
 -- 2) INSERT INTO 테이블명(컬럼명, 컬럼명, 컬럼명) VALUES(데이터, 데이터, 데이터);
@@ -306,4 +307,14 @@ MINUS
 
 SELECT CONCAT( EMP_NAME || '   ', EMAIL) FROM EMPLOYEE WHERE SALARY > 3000000;
 
+
+
+직급별 나이가 가장 어린 직원의
+사번 이름 직급명 나이 보너스포함연봉조회
+나이순으로 내림차
+단 연봉은 \124,800,000 출력
+
+SELECT EMP_ID, EMP_NAME, JOB_NAME, EXTRACT(YEAR FROM SYSDATE)-(SUBSTR(EMP_NO,1,2)+1900) "나이", TO_CHAR((12 * SALARY * (1+NVL(BONUS, 0))), 'L999,999,999') "보너스 포함 연봉"  FROM EMPLOYEE NATURAL JOIN JOB
+WHERE EMP_NO IN (SELECT  MAX(EMP_NO) FROM EMPLOYEE GROUP BY JOB_CODE)
+ORDER BY EMP_NO DESC;
 

@@ -28,6 +28,8 @@ AS SELECT * FROM DEPARTMENT;
 SELECT * FROM DEPT_COPY;
 
 -- DEPT_COPY의 DEPT_TITLE 컬럼에 UNIQUE 추가
+
+
 ALTER TABLE DEPT_COPY ADD CONSTRAINT DEPT_COPY_TITLE_U UNIQUE(DEPT_TITLE);
 
 ALTER TABLE DEPT_COPY DROP CONSTRAINT DEPT_COPY_TITLE_U;
@@ -184,9 +186,9 @@ DROP TABLE TB1;
 
 DROP TABLE TB1 CASCADE CONSTRAINTS;
 
-SELECT concat(concat(concat( concat(EMP_ID, ', '), EMP_NAME ) , ', '), nvl(PHONE, '핸드폰 없음') ) "사번과 이름" FROM EMPLOYEE;
+SELECT CONCAT(CONCAT(CONCAT(CONCAT(EMP_ID, ', '), EMP_NAME ) , ', '), nvl(PHONE, '핸드폰 없음') ) "사번과 이름" FROM EMPLOYEE;
 
-SELECT EMP_NAME , decode(substr(EMP_NO,8,1), 1, '남', 2 ,'여') FROM EMPLOYEE e;
+SELECT EMP_NAME , DECODE(SUBSTR(EMP_NO,8,1), 1, '남', 2 ,'여') FROM EMPLOYEE e;
 
 ---------------------------------------------------------------------------------------------------------------------
 
